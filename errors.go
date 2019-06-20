@@ -47,6 +47,15 @@ func (e *Error) String(key string, value string) *Error {
 	return e
 }
 
+func (e *Error) Int(key string, value int) *Error {
+	field := fmt.Sprintf("%s=%d", key, value)
+	if e.stash != "" {
+		e.stash += " "
+	}
+	e.stash += field
+	return e
+}
+
 func Wrap(err error, message string) *Error {
 	if x, ok := err.(*Error); ok {
 		x.msg = fmt.Sprintf("%s: %s", message, x.msg)
