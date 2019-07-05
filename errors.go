@@ -31,7 +31,14 @@ func (e *Error) Error() string {
 	if e.stash == "" {
 		return e.msg
 	}
-	return fmt.Sprintf("%s %s", e.msg, e.stash)
+	return fmt.Sprintf("code=%d s %s", e.typ, e.msg, e.stash)
+}
+
+func (e *Error) Type() ErrorType {
+	if e == nil {
+		return 0
+	}
+	return e.typ
 }
 
 func (e *Error) Is(err error) bool {
