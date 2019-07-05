@@ -70,7 +70,7 @@ func Wrap(err error, message string) *Error {
 	if err == nil {
 		return nil
 	}
-	if x, ok := err.(*Error); ok {
+	if x, ok := err.(*Error); ok && x != nil {
 		x.msg = fmt.Sprintf("%s: %s", message, x.msg)
 		return x
 	}
