@@ -57,9 +57,12 @@ func (e *Error) Int(key string, value int) *Error {
 }
 
 func Wrap(err error, message string) *Error {
+	if err == nil {
+		return nil
+	}
 	if x, ok := err.(*Error); ok {
 		x.msg = fmt.Sprintf("%s: %s", message, x.msg)
 		return x
 	}
-	return New(0, message)
+	return New(0, fmt.Sprintf("%s: %s", message, err.Error()))
 }
