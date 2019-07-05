@@ -25,6 +25,9 @@ func New(errType ErrorType, message string) *Error {
 }
 
 func (e *Error) Error() string {
+	if e == nil {
+		return ""
+	}
 	if e.stash == "" {
 		return e.msg
 	}
